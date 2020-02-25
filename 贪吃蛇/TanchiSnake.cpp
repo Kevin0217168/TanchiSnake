@@ -193,7 +193,7 @@ void TanchiSnake::draw_start(void)
 	// 设置标题文字矩形区域
 	static RECT title_rect = { 100,(HIGHT / 2) - 100,WIDTH - 100,(HIGHT / 2) - 50 };
 	// 设置页脚文字矩形区域
-	static RECT yejiao_rect = { 10,HIGHT - 35,WIDTH - 10,10 };
+	static RECT yejiao_rect = { 10,HIGHT - 35,WIDTH - 10,HIGHT - 10 };
 
 	// 设置字体大小
 	settextstyle(25, 0, _T("微软雅黑"));
