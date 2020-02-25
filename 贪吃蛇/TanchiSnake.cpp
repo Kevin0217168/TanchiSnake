@@ -45,7 +45,7 @@ void TanchiSnake::draw(RECT& fenshu_rect, RECT& title_rect, vector<Pos>& snake, 
 	drawtext(_T("贪吃蛇 [典藏版]"), &title_rect, DT_LEFT);
 
 	// 在屏幕右上角输出当前分数，并左对齐
-	drawtext(stringToLPCWSTR(string("分数: ") + to_string(fenshu)), &fenshu_rect, DT_LEFT);
+	drawtext(stringToLPCWSTR(string("Score: ") + to_string(fenshu)), &fenshu_rect, DT_LEFT);
 
 	// 绘制蛇的位置
 	for (unsigned int i = 0; i < snake.size(); i++)
@@ -179,7 +179,6 @@ LPCWSTR TanchiSnake::stringToLPCWSTR(std::string orig)
 	wchar_t* wcstring = (wchar_t*)malloc(sizeof(wchar_t) * (orig.length() - 1));
 	mbstowcs_s(&convertedChars, wcstring, origsize, orig.c_str(), _TRUNCATE);
 	return wcstring;
-	return LPCWSTR();
 }
 
 // 绘制开始界面
@@ -266,7 +265,7 @@ start:
 	int ch;
 	// 文字绘制区域
 	RECT title_rect = { 10, 10, 300, 40 };
-	RECT fenshu_rect = { WIDTH - 100, 10, WIDTH - 10, 40 };
+	RECT fenshu_rect = { WIDTH - 120, 10, WIDTH - 10, 40 };
 
 	// 初始化小蛇位置
 	int middle_row = (int)(ROW / 2);
