@@ -364,7 +364,7 @@ start:
 		}
 		fps3.delay();
 	}
-	fenshu = 0;
+	
 	system("pause");
 	return 0;
 }
