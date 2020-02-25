@@ -5,8 +5,8 @@ TanchiSnake::TanchiSnake(int width, int hight, int cell)
 	this->WIDTH = width;
 	this->HIGHT = hight;
 	this->CELL = cell;
-	this->ROW = (int)((this->WIDTH - 20) / CELL);
-	this->COL = (int)((this->HIGHT - 60) / CELL);
+	this->ROW = (int)((this->WIDTH - 30) / CELL);
+	this->COL = (int)((this->HIGHT - 70) / CELL);
 }
 
 // 生成从MIX到MIN的随机数
