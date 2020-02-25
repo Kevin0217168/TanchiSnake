@@ -359,6 +359,7 @@ start:
 		if (_kbhit()) {
 			// 按下空格键继续
 			if (_getch() == 32) {
+				fenshu = 0;
 				goto start;
 			}
 		}
