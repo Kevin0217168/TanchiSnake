@@ -35,15 +35,21 @@ A:
 // 游戏绘图刷新
 void TanchiSnake::draw(RECT& fenshu_rect, RECT& title_rect, vector<Pos>& snake, Pos* food_pos)
 {
+	
 	// 清空当前屏幕
 	cleardevice();
-
+	// 开始批量绘图任务
+	BeginBatchDraw();
 	// 画矩形 left top   bottom      right
 	rectangle(10, 50, WIDTH - 10, HIGHT - 10);// 从左上角到右下角画一个框
 
 	// 在屏幕左上角输出标题，并左对齐
+	// 浅黄
+	settextcolor(RGB(241, 196, 15));
 	drawtext(_T("贪吃蛇 [典藏版]"), &title_rect, DT_LEFT);
 
+	// 设置字体颜色为浅蓝色
+	settextcolor(RGB(30, 144, 255));
 	// 在屏幕右上角输出当前分数，并左对齐
 	drawtext(stringToLPCWSTR(string("Score: ") + to_string(fenshu)), &fenshu_rect, DT_LEFT);
 
@@ -52,7 +58,7 @@ void TanchiSnake::draw(RECT& fenshu_rect, RECT& title_rect, vector<Pos>& snake, 
 	{
 		if (i == 0) {
 			// 设置填充色为蓝色
-			setfillcolor(BLUE);
+			setfillcolor(RGB(30, 144, 255));
 		}
 		else if (i == 1) {
 			// 设置填充色为白色
@@ -60,16 +66,18 @@ void TanchiSnake::draw(RECT& fenshu_rect, RECT& title_rect, vector<Pos>& snake, 
 		}
 		else if (i == snake.size() - 1) {
 			// 设置填充色为绿色
-			setfillcolor(GREEN);
+			setfillcolor(RGB(46, 213, 115));
 		}
 		// 画填充矩形
 		solidrectangle(10 + (snake[i].poses[0]) * 10, 50 + (snake[i].poses[1]) * 10, 10 + (snake[i].poses[0]) * 10 + 10, 50 + (snake[i].poses[1]) * 10 + 10);
 	}
 
-	// 设置填充色为绿色
-	setfillcolor(RED);
+	// 设置填充色为红色
+	setfillcolor(RGB(255, 71, 87));
 	// 绘制食物的位置
 	solidrectangle(10 + (food_pos->poses[0]) * 10, 50 + (food_pos->poses[1]) * 10, 10 + (food_pos->poses[0]) * 10 + 10, 50 + (food_pos->poses[1]) * 10 + 10);
+	// 结束批量绘图任务
+	EndBatchDraw();
 }
 bool TanchiSnake::if_hit_wall(vector<Pos>& snake)
 {
@@ -186,6 +194,8 @@ void TanchiSnake::draw_start(void)
 {
 	// 清空当前屏幕
 	cleardevice();
+	// 开始批量绘图任务
+	BeginBatchDraw();
 
 	// 设置页眉文字矩形区域
 	static RECT yemei_rect = { 10,10,WIDTH - 10,45 };
@@ -194,28 +204,37 @@ void TanchiSnake::draw_start(void)
 	// 设置页脚文字矩形区域
 	static RECT yejiao_rect = { 10,HIGHT - 35,WIDTH - 10,HIGHT - 10 };
 
+	settextcolor(RGB(255,255,255));
 	// 设置字体大小
 	settextstyle(25, 0, _T("微软雅黑"));
 	// 绘制右上方的页眉
 	drawtext(_T("凯文的第一个C++游戏"), &yemei_rect, DT_LEFT);
 
+	// 设置字体颜色为浅紫色
+	settextcolor(RGB(162, 155, 254));
 	settextstyle(50, 0, _T("微软雅黑"));
 	// 绘制大大的标题
 	drawtext(_T("贪 吃 蛇"), &title_rect, DT_CENTER);
 
+	settextcolor(RGB(255, 127, 80));
 	settextstyle(25, 0, _T("微软雅黑"));
 	// 绘制左下方的页脚
 	drawtext(_T("按下空格键来开始游戏"), &yejiao_rect, DT_RIGHT);
+	// 结束批量绘图任务
+	EndBatchDraw();
 }
 
 // 绘制结束界面
 void TanchiSnake::draw_gameover(void)
 {
 	static RECT over_rect = { 100,(HIGHT / 2) - 100,WIDTH - 100,(HIGHT / 2) - 50 };
-	static RECT text_rect = { 50, (HIGHT / 2), WIDTH - 50,(HIGHT / 2) + 30 };
-
+	static RECT score_rect = { 100,(HIGHT / 2)-40 ,WIDTH - 100,(HIGHT / 2) };
+	static RECT text_rect = { 50, (HIGHT / 2) + 70, WIDTH - 50,(HIGHT / 2) + 100 };
+	
 	// 清空当前屏幕
 	cleardevice();
+	// 开始批量绘图任务
+	BeginBatchDraw();
 
 	// 设置字体颜色为红色
 	settextcolor(RED);
@@ -224,12 +243,21 @@ void TanchiSnake::draw_gameover(void)
 	// 绘制大大的GameOver
 	drawtext(_T("Game Over"), &over_rect, DT_CENTER);
 
+	// 设置字体颜色为浅蓝色
+	settextcolor(RGB(30, 144, 255));
+	// 设置字体大小
+	settextstyle(40, 0, _T("微软雅黑"));
+	// 绘制分数提示
+	drawtext(stringToLPCWSTR(string("Score: ") + to_string(fenshu)), &score_rect, DT_CENTER);
+
 	// 设置字体颜色为白色
 	settextcolor(RGB(255, 255, 255));
 	// 设置字体大小
 	settextstyle(30, 0, _T("微软雅黑"));
 	// 绘制重新提示
 	drawtext(_T("啊哦，游戏结束啦，按下空格键重来"), &text_rect, DT_CENTER);
+	// 结束批量绘图任务
+	EndBatchDraw();
 }
 
 int TanchiSnake::start_the_game(void)
@@ -237,6 +265,10 @@ int TanchiSnake::start_the_game(void)
 	// 初始化画图窗口
 	//          x      y      不显示控制台
 	initgraph(WIDTH, HIGHT);
+	// 获得窗口句柄
+	HWND hWnd = GetHWnd();
+	// 使用 API 函数修改窗口名称
+	SetWindowText(hWnd, _T("Kevin Demo TanchiSnake"));
 	// 字体类型
 	LOGFONT f;
 	// 获得当前字体
